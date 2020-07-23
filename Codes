@@ -1,0 +1,16 @@
+######################################################################################################################
+# In the following code target should be a string
+def finding_null_ratio(df,target):
+    total_rows = df.shape[0]
+    null_ratio=pd.DataFrame([],columns=['feature','null_ratio'])
+    
+    for i,source in enumerate(df.columns):
+        null_ratio.loc[i,'feature'] = source
+        null_ratio.loc[i,'null_ratio'] = df[source].isnull().sum()/total_rows
+        #print(null_ratio)
+    
+    A = df[target].isnull().sum()
+    print('The database have {} null values\n'.format(A))
+    
+    return null_ratio.sort_values(by=['null_ratio'],ascending=False)[:20]
+######################################################################################################################
